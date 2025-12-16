@@ -1,18 +1,15 @@
-from os import getenv
 
-from dotenv import load_dotenv
+import os
 
-load_dotenv()
-que = {}
-SESSION_NAME = getenv("SESSION_NAME", "session")
-BOT_TOKEN = getenv("BOT_TOKEN")
-BOT_NAME = getenv("BOT_NAME")
-admins = {}
-API_ID = int(getenv("API_ID"))
-API_HASH = getenv("API_HASH")
+API_ID = int(os.getenv("API_ID"))
+API_HASH = os.getenv("API_HASH")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-DURATION_LIMIT = int(getenv("DURATION_LIMIT", "10"))
+OWNER_ID = int(os.getenv("SUDO_USERS").split()[0])
 
-COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES", "/ !").split())
+SESSION_FILE = "session.txt"
 
-SUDO_USERS = list(map(int, getenv("SUDO_USERS").split()))
+STRING_SESSION = None
+if os.path.exists(SESSION_FILE):
+    with open(SESSION_FILE, "r") as f:
+        STRING_SESSION = f.read().strip()
