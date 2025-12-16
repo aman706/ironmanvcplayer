@@ -5,7 +5,12 @@ import config
 from . import queues
 
 client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
-pytgcalls = PyTgCalls(client)
+from pytgcalls.types import AudioQuality
+
+pytgcalls = PyTgCalls(
+    client,
+    audio_quality=AudioQuality.HIGH,
+)
 
 
 @pytgcalls.on_stream_end()
