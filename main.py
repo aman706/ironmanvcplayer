@@ -1,12 +1,21 @@
 import os
 os.environ["TZ"] = "UTC"
 
-from callsmusic.callsmusic import bot, start_userbot
+from pyrogram import Client as Bot
+from config import API_ID, API_HASH, BOT_TOKEN
+from callsmusic.callsmusic import start_userbot
 
-# Start bot client (BOT_TOKEN based)
+bot = Bot(
+    "bot_session",          # <-- FILE BASED SESSION (IMPORTANT)
+    api_id=API_ID,
+    api_hash=API_HASH,
+    bot_token=BOT_TOKEN,
+    plugins=dict(root="handlers")
+)
+
 bot.start()
 
-# Start userbot + PyTgCalls only if STRING_SESSION exists
+# start userbot only if session exists
 start_userbot()
 
-print(">> Bot is running and ready.")
+print(">> Bot started successfully.")
