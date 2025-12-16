@@ -2,7 +2,8 @@ from pyrogram import Client as Bot
 
 from callsmusic import run
 from config import API_ID, API_HASH, BOT_TOKEN
-
+import os
+os.environ["TZ"] = "UTC"
 
 bot = Bot(
     ":memory:",
