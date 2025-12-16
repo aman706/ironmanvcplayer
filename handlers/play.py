@@ -461,7 +461,17 @@ async def play(_, message: Message):
         query += ' ' + str(i)
     print(query)
     await lel.edit("🎵 **Processing**")
-    ydl_opts = {"format": "bestaudio[ext=m4a]"}
+    ytdl_opts = {
+    "format": "bestaudio/best",
+    "quiet": True,
+    "nocheckcertificate": True,
+    "ignoreerrors": True,
+    "no_warnings": True,
+    "extractaudio": True,
+    "audioformat": "opus",
+    "audioquality": "0",   # BEST QUALITY
+    "outtmpl": "downloads/%(id)s.%(ext)s",
+    }
     try:
         results = YoutubeSearch(query, max_results=1).to_dict()
         url = f"https://youtube.com{results[0]['url_suffix']}"
