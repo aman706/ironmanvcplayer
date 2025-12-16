@@ -1,4 +1,4 @@
-from asyncio.queues import QueueEmpty
+ufrom asyncio.queues import QueueEmpty
 from cache.admins import set
 from pyrogram import Client
 from pyrogram.types import Message
@@ -107,3 +107,16 @@ async def skip(_, message: Message):
 async def admincache(client, message: Message):
     set(message.chat.id, [member.user for member in await message.chat.get_members(filter="administrators")])
     #await message.reply_text("✯ΛLPHA ᴍᴜꜱɪᴄ✯=❇️ Admin cache refreshed!")
+@bot.on_message(filters.command("setsession") & filters.user(OWNER_ID))
+async def set_session(_, message):
+    if len(message.command) < 2:
+        return await message.reply("Usage:\n/setsession <string_session>")
+
+    session = message.text.split(None, 1)[1].strip()
+
+    with open("session.txt", "w") as f:
+        f.write(session)
+
+    await message.reply("✅ Session saved. Restarting...")
+
+    os.execv(sys.executable, ["python3"] + sys.argv)
